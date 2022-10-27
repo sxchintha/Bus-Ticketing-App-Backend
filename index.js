@@ -22,6 +22,18 @@ app.use(express.json({ limit: "30mb", extended: true }));
 const loginRouter = require("./routes/login.routes");
 app.use("/main", loginRouter);
 
+// Bus routes
+const busRouter = require("./routes/bus.routes");
+app.use("/bus", busRouter);
+
+// Ticket routes
+const ticketRouter = require("./routes/ticket.routes");
+app.use("/ticket", ticketRouter);
+
+// Timetable routes
+const timetableRouter = require("./routes/timetable.routes");
+app.use("/timetable", timetableRouter);
+
 const URL = process.env.MONGODB_URL;
 
 mongoose.connect(URL, {
