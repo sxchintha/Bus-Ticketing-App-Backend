@@ -34,6 +34,10 @@ app.use("/ticket", ticketRouter);
 const timetableRouter = require("./routes/timetable.routes");
 app.use("/timetable", timetableRouter);
 
+//BusRoute routes
+const addNewBusRoute=require("./routes/busRoute.routes")
+app.use("/busroute",addNewBusRoute);
+
 const URL = process.env.MONGODB_URL;
 
 mongoose.connect(URL, {
