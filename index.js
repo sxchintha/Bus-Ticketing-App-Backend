@@ -20,7 +20,7 @@ app.use(express.json({ limit: "30mb", extended: true }));
 
 //Login routes
 const loginRouter = require("./routes/login.routes");
-app.use("main", loginRouter);
+app.use("/main", loginRouter);
 
 const URL = process.env.MONGODB_URL;
 
