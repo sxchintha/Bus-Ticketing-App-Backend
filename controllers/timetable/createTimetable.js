@@ -4,12 +4,12 @@ const Timetable = require("../../models/timetable.model");
 const createTimetable = async (req, res) => {
     const timetableData = req.body;
     try {
-        const newTicket = new Timetable(timetableData);
-        newTicket.save()
-            .then(bus => {
+        const newTimetable = new Timetable(timetableData);
+        newTimetable.save()
+            .then(timetalbe => {
                 res.status(200).json({
                     message: "Timetable created successfully",
-                    bus: bus
+                    timetable: timetalbe
                 })
             })
             .catch(err => {
