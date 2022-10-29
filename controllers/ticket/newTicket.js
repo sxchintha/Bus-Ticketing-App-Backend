@@ -13,10 +13,10 @@ const newTicket = async (req, res) => {
         
         const newTicket = new Ticket(ticketData);
         newTicket.save()
-            .then(bus => {
+            .then(ticket => {
                 res.status(200).json({
                     message: "Ticket created successfully",
-                    bus: bus
+                    ticket: ticket
                 })
             })
             .catch(err => {

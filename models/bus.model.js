@@ -17,9 +17,6 @@ const busSchema = new Schema({
     busStatus: {
         type: String,
     },
-    busLocation: {
-        type: String,
-    },
 });
 
 const Bus = mongoose.model("Bus", busSchema);
