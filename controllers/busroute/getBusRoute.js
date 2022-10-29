@@ -4,7 +4,7 @@ const BusRoute = require("../../models/busRoute.model")
 // get bus route by starting location and destination
 async function getRouteByStartAndDestination(startLocation, destination) {
     try {
-        await BusRoute.find({ 'stations.stationName': { $all: [startLocation, destination] } })
+        const routes = await BusRoute.find({ 'stations.stationName': { $all: [startLocation, destination] } })
             .then(async route => {
                 if (route) {
                     // console.log(route);
@@ -19,8 +19,9 @@ async function getRouteByStartAndDestination(startLocation, destination) {
                     const ticketPrice = route[0].totalPrice / route[0].distance * distance;
 
                     // return the routes, distance and the ticket price
+                    const routeNumbers = route.map(route => route.routeNumber);
                     return {
-                        routes: route,
+                        routes: routeNumbers,
                         distance: distance.toFixed(2),
                         ticketPrice: ticketPrice.toFixed(2)
                     };
@@ -31,6 +32,9 @@ async function getRouteByStartAndDestination(startLocation, destination) {
                     }
                 }
             })
+
+        return routes;
+
     } catch (error) {
         console.log(error);
         return {
