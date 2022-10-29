@@ -6,9 +6,7 @@ async function getRouteByStartAndDestination(startLocation, destination) {
     try {
         const routes = await BusRoute.find({ 'stations.stationName': { $all: [startLocation, destination] } })
             .then(async route => {
-                if (route) {
-                    // console.log(route);
-
+                if (route.length > 0) {
                     // get the data(distance from start point of the route) of the start location and destination
                     const startLocationData = await route[0].stations.find(station => station.stationName === startLocation);
                     const destinationData = await route[0].stations.find(station => station.stationName === destination);
