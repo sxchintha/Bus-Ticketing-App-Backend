@@ -11,7 +11,7 @@ const timetableSchema = new Schema({
         required: true
     },
     timetableDay: {
-        type: String,
+        type: Number,
         required: true
     },
     timetableTime: {
