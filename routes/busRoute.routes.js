@@ -5,6 +5,6 @@ const { getRouteByStartAndDestination } = require("../controllers/busroute/getBu
 const router = express.Router();
 
 router.post("/addNewBusRoute", addNewBusRoute);
-router.get("/getRoute", getRouteByStartAndDestination)
+// router.get("/getRoute", getRouteByStartAndDestination)
 
 module.exports = router;
