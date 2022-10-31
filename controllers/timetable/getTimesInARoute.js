@@ -20,8 +20,6 @@ async function getTimesAndBuses(times, startLocation, destination) {
             let bus = await getBusByBusNumber(time.timetableBus);
 
             // find the start location and destination stations' data in the route
-            // let start = await getStationInARoute(time.timetableRoute, startLocation);
-            // let end = await getStationInARoute(time.timetableRoute, destination);
             let routeDetail = await getRouteByRouteNumber(time.timetableRoute);
 
             let start = await routeDetail.stations.find(function (station) {
@@ -75,8 +73,19 @@ async function getTimesInARoute(routeNumber, startLocation, destination) {
         // get the day
         const day = new Date().getDay();
 
+        // deside up or down in the route
+        let upOrDown
+        const start = await getStationInARoute(routeNumber, startLocation);
+        const end = await getStationInARoute(routeNumber, destination);
+
+        if (start.stationTime < end.stationTime) {
+            upOrDown = 'up';
+        } else {
+            upOrDown = 'down';
+        }
+
         // get the times of the route
-        const times = await Timetable.find({ timetableRoute: routeNumber, timetableDay: day })
+        const times = await Timetable.find({ timetableRoute: routeNumber, timetableDay: day, timetableUpDown: upOrDown })
             .then(async times => {
                 if (times) {
                     // the getTimesAndBuses function returns an array of bus times and bus objects
