@@ -3,8 +3,10 @@ const Timetable = require("../../models/timetable.model");
 
 const createTimetable = async (req, res) => {
     const timetableData = req.body;
+
     try {
         const newTimetable = new Timetable(timetableData);
+
         newTimetable.save()
             .then(timetalbe => {
                 res.status(200).json({

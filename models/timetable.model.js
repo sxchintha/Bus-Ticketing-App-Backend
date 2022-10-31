@@ -14,8 +14,12 @@ const timetableSchema = new Schema({
         type: Number,
         required: true
     },
-    timetableTime: {
-        type: String,
+    timetableTimeH: {
+        type: Number,
+        required: true
+    },
+    timetableTimeM: {
+        type: Number,
         required: true
     },
     timetableStatus: {

@@ -20,7 +20,20 @@ const getBusTimesWithRoute = async (req, res) => {
         }
         else {
             // get the available buses and times for each route
-            const times = await getTimesInArryOfRoutes(routes.routes);
+            const times = await getTimesInArryOfRoutes(routes.routes, startLocation, destination);
+            let busTimes = [];
+            times.forEach(time => {
+                if (time) {
+                    busTimes = [...busTimes, ...time];
+                }
+            })
+
+            // set ticket prices
+            routes.ticketPrice = {
+                normal: routes.ticketPrice,
+                luxury: (routes.ticketPrice * 1.5).toFixed(2),
+                ac: (routes.ticketPrice * 2).toFixed(2),
+            }
 
             // show error if no time found
             if (times.error) {
@@ -36,7 +49,7 @@ const getBusTimesWithRoute = async (req, res) => {
                     message: "Bus routes found",
                     distance: routes.distance,
                     ticketPrice: routes.ticketPrice,
-                    busTimes: times
+                    busTimes: busTimes
                 })
             }
         }
