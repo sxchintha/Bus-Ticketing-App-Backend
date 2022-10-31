@@ -25,6 +25,10 @@ const timetableSchema = new Schema({
     timetableStatus: {
         type: String,
     },
+    timetableUpDown: {
+        type: String,
+        required: true
+    }
 });
 
 const Timetable = mongoose.model("Timetable", timetableSchema);
