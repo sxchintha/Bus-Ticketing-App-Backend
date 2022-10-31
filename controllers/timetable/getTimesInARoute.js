@@ -64,7 +64,11 @@ async function getTimesAndBuses(times, startLocation, destination) {
 // get bus times by route number
 async function getTimesInARoute(routeNumber, startLocation, destination) {
     try {
-        const times = await Timetable.find({ timetableRoute: routeNumber })
+        // get the day
+        const day = new Date().getDay();
+        
+        // get the times of the route
+        const times = await Timetable.find({ timetableRoute: routeNumber, timetableDay: day })
             .then(async times => {
                 if (times) {
                     // the getTimesAndBuses function returns an array of bus times and bus objects

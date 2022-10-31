@@ -1,8 +1,32 @@
 
+const { NORMAL_BUS, LUXURY_BUS, AC_BUS } = require('../../common/TicketPrices');
 const Bus = require('../../models/bus.model');
 const Timetable = require('../../models/timetable.model');
 const { getRouteByStartAndDestination } = require('../busroute/getBusRoute');
 const { getTimesInARoute, getTimesInArryOfRoutes } = require('./getTimesInARoute');
+
+// function to compare the string times in busTimes array
+const compare = (a, b) => {
+    if (a.arivalTimeOnStart < b.arivalTimeOnStart) {
+        return -1;
+    }
+    if (a.arivalTimeOnStart > b.arivalTimeOnStart) {
+        return 1;
+    }
+    return 0;
+}
+
+// get only the times after now
+const getTimesAfterNow = (times) => {
+    const now = new Date();
+    const timesAfterNow = times.filter(time => {
+        const timeArr = time.arivalTimeOnStart.split(':');
+        const timeDate = new Date(now.getFullYear(), now.getMonth(), now.getDate(), timeArr[0], timeArr[1]);
+        return timeDate > now;
+    });
+    return timesAfterNow;
+}
+
 
 // get available buses and times by starting location and destination
 const getBusTimesWithRoute = async (req, res) => {
@@ -28,11 +52,15 @@ const getBusTimesWithRoute = async (req, res) => {
                 }
             })
 
+            busTimes = getTimesAfterNow(busTimes);
+
+            console.log(busTimes.sort(compare));
+
             // set ticket prices
             routes.ticketPrice = {
-                normal: routes.ticketPrice,
-                luxury: (routes.ticketPrice * 1.5).toFixed(2),
-                ac: (routes.ticketPrice * 2).toFixed(2),
+                normal: (routes.ticketPrice * NORMAL_BUS).toFixed(2),
+                luxury: (routes.ticketPrice * LUXURY_BUS).toFixed(2),
+                ac: (routes.ticketPrice * AC_BUS).toFixed(2),
             }
 
             // show error if no time found
