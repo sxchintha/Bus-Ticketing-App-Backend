@@ -4,6 +4,14 @@ const getBusByBusNumber = require('../bus/getBusByBusNumber');
 const getRouteByRouteNumber = require('../busroute/getRouteByRouteNumber');
 const getStationInARoute = require('../busroute/getStationInARoute');
 
+// add 0 if the number is less than 10
+function addZero(number) {
+    if (number < 10) {
+        return `0${number}`;
+    }
+    return number;
+}
+
 // function to return the time and the bus number of the times
 async function getTimesAndBuses(times, startLocation, destination) {
     // wait until all the bus numbers are found
@@ -32,22 +40,22 @@ async function getTimesAndBuses(times, startLocation, destination) {
             // check whether the bus is going up or down
             if (start.stationTime < end.stationTime) {
                 tempDate = new Date(timeFromBegin.getTime() + start.stationTime * 60000);
-                arrivalAtStart = tempDate.getHours() + ":" + tempDate.getMinutes();
+                arrivalAtStart = addZero(tempDate.getHours()) + ":" + addZero(tempDate.getMinutes());
 
                 tempDate = new Date(timeFromBegin.getTime() + end.stationTime * 60000);
-                arrivalAtEnd = tempDate.getHours() + ":" + tempDate.getMinutes();
+                arrivalAtEnd = addZero(tempDate.getHours()) + ":" + addZero(tempDate.getMinutes());
             } else {
                 tempDate = new Date(timeFromBegin.getTime() + (routeDetail.totalTime - start.stationTime) * 60000);
-                arrivalAtStart = tempDate.getHours() + ":" + tempDate.getMinutes();
+                arrivalAtStart = addZero(tempDate.getHours()) + ":" + addZero(tempDate.getMinutes());
 
                 tempDate = new Date(timeFromBegin.getTime() + (routeDetail.totalTime - end.stationTime) * 60000);
-                arrivalAtEnd = tempDate.getHours() + ":" + tempDate.getMinutes();
+                arrivalAtEnd = addZero(tempDate.getHours()) + ":" + addZero(tempDate.getMinutes());
             }
 
             // if there is no error, return the time and the bus number
             if (!bus.error) {
                 return ({
-                    timeFromBegin: time.timetableTimeH + ':' + time.timetableTimeM,
+                    timeFromBegin: addZero(time.timetableTimeH) + ':' + addZero(time.timetableTimeM),
                     arivalTimeOnStart: arrivalAtStart,
                     arivalTimeOnDestination: arrivalAtEnd,
                     route: time.timetableRoute,
@@ -66,7 +74,7 @@ async function getTimesInARoute(routeNumber, startLocation, destination) {
     try {
         // get the day
         const day = new Date().getDay();
-        
+
         // get the times of the route
         const times = await Timetable.find({ timetableRoute: routeNumber, timetableDay: day })
             .then(async times => {
