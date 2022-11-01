@@ -1,6 +1,5 @@
 const express = require("express");
-const addNewBusRoute = require("../controllers/bus/addNewBus");
-const { getRouteByStartAndDestination } = require("../controllers/busroute/getBusRoute");
+const addNewBusRoute = require("../controllers/busroute/busRoute")
 
 const router = express.Router();
 

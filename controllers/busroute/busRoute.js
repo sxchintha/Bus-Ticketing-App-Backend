@@ -19,4 +19,5 @@ const addNewBusRoute = async (req, res) => {
                     })
             }
         
-module.exports = { addNewBusRoute };
+module.exports = addNewBusRoute;
+

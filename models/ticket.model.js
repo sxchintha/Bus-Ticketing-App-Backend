@@ -39,6 +39,9 @@ const ticketSchema = new Schema({
     ticketPassenger: {
         type: String,
     },
+    routeNumnber:{
+        type:String,
+    },
 });
 
 const Ticket = mongoose.model("Ticket", ticketSchema);
