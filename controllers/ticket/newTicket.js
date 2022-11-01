@@ -1,10 +1,13 @@
 
 const Ticket = require("../../models/ticket.model");
+const getTicketPrice = require("./getTicketPrice");
 
 const newTicket = async (req, res) => {
     const ticketData = req.body;
     try {
         // Calculate the ticket price
+        ticketData.ticketPrice= await getTicketPrice(ticketData)
+        console.log(ticketData);
 
         // Get seat number
 

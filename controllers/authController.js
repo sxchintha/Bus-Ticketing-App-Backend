@@ -5,9 +5,9 @@ const Iuser = require('../models/iUser.model');
 const handleLogin = async (req, res) => {
     console.log("PASSEDDD")
     // console.log(req.body)
-    const { username, password, email } = req.body;
+    const {password, email } = req.body;
     let foundUser;
-    if ((!username||!email)&&!password) return res.status(400).json({ 'message': 'Username and password are required.' });
+    if (!email&&!password) return res.status(400).json({ 'message': 'email and password are required.' });
     foundUser = await Iuser.findOne({ email: email }).exec();
 
     if (!foundUser) {
@@ -37,7 +37,7 @@ const handleLogin = async (req, res) => {
         const accessToken = jwt.sign(
             {
                 "UserInfo": {
-                    "username": foundUser.username,
+                    "email": foundUser.email,
                     "roles": roles,
                     "_id":_id
                 }
@@ -46,7 +46,7 @@ const handleLogin = async (req, res) => {
             { expiresIn: '1h' }
         );
         const refreshToken = jwt.sign(
-            { "username": foundUser.username },
+            { "email": foundUser.email },
             process.env.REFRESH_TOKEN_SECRET,
             { expiresIn: '1d' }
         );
