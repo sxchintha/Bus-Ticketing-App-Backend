@@ -53,8 +53,9 @@ const getBusTimesWithRoute = async (req, res) => {
             })
 
             busTimes = getTimesAfterNow(busTimes);
+            busTimes.sort(compare)
+            // console.log(busTimes.sort(compare));
 
-            console.log(busTimes.sort(compare));
 
             // set ticket prices
             routes.ticketPrice = {

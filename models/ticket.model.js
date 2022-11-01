@@ -4,7 +4,6 @@ const Schema = mongoose.Schema;
 const ticketSchema = new Schema({
     ticketType: {
         type: String,
-        required: true
     },
     ticketPrice: {
         type: Number,
@@ -31,7 +30,6 @@ const ticketSchema = new Schema({
     },
     ticketSeat: {
         type: String,
-        required: true
     },
     ticketBus: {
         type: String,
@@ -39,9 +37,12 @@ const ticketSchema = new Schema({
     ticketPassenger: {
         type: String,
     },
-    routeNumnber:{
-        type:String,
+    routeNumnber: {
+        type: String,
     },
+    userID: {
+        type: String,
+    }
 });
 
 const Ticket = mongoose.model("Ticket", ticketSchema);
