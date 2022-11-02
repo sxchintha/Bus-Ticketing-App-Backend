@@ -22,7 +22,8 @@ const ticketSchema = new Schema({
     },
     ticketDate: {
         type: String,
-        required: true
+        required: true,
+        default: Date.now()
     },
     ticketTime: {
         type: String,
@@ -33,6 +34,7 @@ const ticketSchema = new Schema({
     },
     ticketBus: {
         type: String,
+        required: true
     },
     ticketPassenger: {
         type: String,
@@ -42,6 +44,7 @@ const ticketSchema = new Schema({
     },
     userID: {
         type: String,
+        required: true
     }
 });
 
