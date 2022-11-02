@@ -81,27 +81,36 @@ const scanQrTicket = async (req, res) => {
                         })
                     }
                 } else {
-                    const newTempTicket = new TempTicket({
-                        userID: ticketData.userID,
-                        startStation: ticketData.busLocation,
-                        busNumber: ticketData.busNumber,
-                    });
-                    newTempTicket.save()
-                        .then(tempTicket => {
-                            res.status(200).json({
-                                message: "Start location saved",
-                                resCode: 202,
-                                tempTicket: tempTicket
-                            })
-                        })
-                        .catch(err => {
-                            console.log(err.message);
-                            res.status(500).json({
-                                message: "Error saving start location",
-                                resCode: 403,
-                                error: err
-                            })
+                    // check if the user id is valid
+                    const user = await User.findOne({ nic: ticketData.userID });
+                    if (user) {
+                        const newTempTicket = new TempTicket({
+                            userID: ticketData.userID,
+                            startStation: ticketData.busLocation,
+                            busNumber: ticketData.busNumber,
                         });
+                        newTempTicket.save()
+                            .then(tempTicket => {
+                                res.status(200).json({
+                                    message: "Start location saved",
+                                    resCode: 202,
+                                    tempTicket: tempTicket
+                                })
+                            })
+                            .catch(err => {
+                                console.log(err.message);
+                                res.status(500).json({
+                                    message: "Error saving start location",
+                                    resCode: 403,
+                                    error: err
+                                })
+                            });
+                    } else {
+                        res.json({
+                            message: "Invalid user id",
+                            resCode: 400
+                        })
+                    }
                 }
             })
     } catch (error) {
