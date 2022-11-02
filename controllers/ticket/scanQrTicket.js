@@ -5,6 +5,7 @@ const User = require("../../models/iUser.model");
 const { getRouteByStartAndDestination } = require("../busroute/getBusRoute");
 const getBusByBusNumber = require("../bus/getBusByBusNumber");
 const { AC_BUS, LUXURY_BUS, NORMAL_BUS } = require("../../common/TicketPrices");
+const retryOperation = require("../../common/retry");
 
 const calculateTicketPrice = async (ticketPrice, busType) => {
     if (busType === 'ac') {
@@ -52,9 +53,12 @@ const scanQrTicket = async (req, res) => {
                         newTicket.save()
                             .then(async ticket => {
                                 // remove the temp ticket
-                                await TempTicket.deleteOne({ userID: ticketData.userID });
+                                // use the retry design pattern to retry the operation if it fails
+                                await retryOperation(TempTicket.deleteOne({ userID: ticketData.userID }), 3);
+
                                 // deduct the ticket price from the user account balance
-                                await User.updateOne({ nic: ticketData.userID }, { $inc: { accountBalance: -ticketPrice } });
+                                // use the retry design pattern to retry the operation if it fails
+                                await retryOperation(User.updateOne({ nic: ticketData.userID }, { $inc: { accountBalance: -ticketPrice } }), 3);
 
                                 res.status(200).json({
                                     message: "Ticket created successfully",
@@ -101,7 +105,7 @@ const scanQrTicket = async (req, res) => {
                 }
             })
     } catch (error) {
-        log.error(error);
+        console.log(error);
         res.status(500).json({
             message: "Error creating Ticket",
             resCode: 401,
