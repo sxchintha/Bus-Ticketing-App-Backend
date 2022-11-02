@@ -24,7 +24,7 @@ const userSignUp = async (req, res) => {
                     .then(user => {
                         res.status(201).json({
                             message: "User created successfully",
-                            user:user
+                            user: user
                         })
                     }).catch(err => {
                         res.status(500).json({
@@ -39,8 +39,8 @@ const userSignUp = async (req, res) => {
                 error: err
             })
         })
-    }
+}
 
-    module.exports={
-        userSignUp
+module.exports = {
+    userSignUp
 }

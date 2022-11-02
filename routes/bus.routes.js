@@ -3,6 +3,6 @@ const addNewBus = require("../controllers/bus/addNewBus");
 
 const router = express.Router();
 
-router.post("/addNewBus", addNewBus);
+router.post("/addNewBus", addNewBus); // Add new Bus
 
 module.exports = router;

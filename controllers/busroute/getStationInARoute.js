@@ -5,6 +5,8 @@ async function getStationInARoute(routeNumber, stationName) {
     // find station in the route.stations array
     try {
         const route = await BusRoute.findOne({ routeNumber: routeNumber });
+
+        // if a route is found, return the route, else return error
         if (!route) {
             return {
                 error: "No route found"

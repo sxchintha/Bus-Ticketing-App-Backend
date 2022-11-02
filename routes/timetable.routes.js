@@ -4,7 +4,7 @@ const getBusTimesWithRoute = require("../controllers/timetable/getBusTimesWithRo
 
 const router = express.Router();
 
-router.post("/createNewTimetable", createTimetable)
-router.post("/getBusByRoute", getBusTimesWithRoute)
+router.post("/createNewTimetable", createTimetable) // Create new timetable
+router.post("/getBusByRoute", getBusTimesWithRoute) // Get bus times with route
 
 module.exports = router;

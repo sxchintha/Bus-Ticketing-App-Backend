@@ -1,11 +1,9 @@
 
 const { NORMAL_BUS, LUXURY_BUS, AC_BUS } = require('../../common/TicketPrices');
-const Bus = require('../../models/bus.model');
-const Timetable = require('../../models/timetable.model');
 const { getRouteByStartAndDestination } = require('../busroute/getBusRoute');
-const { getTimesInARoute, getTimesInArryOfRoutes } = require('./getTimesInARoute');
+const { getTimesInArryOfRoutes } = require('./getTimesInARoute');
 
-// function to compare the string times in busTimes array
+// function to compare the string times in busTimes array and sort them
 const compare = (a, b) => {
     if (a.arivalTimeOnStart < b.arivalTimeOnStart) {
         return -1;
@@ -26,7 +24,6 @@ const getTimesAfterNow = (times) => {
     });
     return timesAfterNow;
 }
-
 
 // get available buses and times by starting location and destination
 const getBusTimesWithRoute = async (req, res) => {
