@@ -58,6 +58,7 @@ const scanQrTicket = async (req, res) => {
 
                                 res.status(200).json({
                                     message: "Ticket created successfully",
+                                    resCode: 201,
                                     ticket: ticket
                                 })
                             })
@@ -65,12 +66,14 @@ const scanQrTicket = async (req, res) => {
                                 console.log(err.message);
                                 res.status(400).json({
                                     message: "Error creating ticket",
+                                    resCode: 401,
                                     error: err
                                 })
                             });
                     } else {
                         res.status(400).json({
                             error: "Insufficient balance",
+                            resCode: 402
                         })
                     }
                 } else {
@@ -83,6 +86,7 @@ const scanQrTicket = async (req, res) => {
                         .then(tempTicket => {
                             res.status(200).json({
                                 message: "Start location saved",
+                                resCode: 202,
                                 tempTicket: tempTicket
                             })
                         })
@@ -90,6 +94,7 @@ const scanQrTicket = async (req, res) => {
                             console.log(err.message);
                             res.status(500).json({
                                 message: "Error saving start location",
+                                resCode: 403,
                                 error: err
                             })
                         });
@@ -99,6 +104,7 @@ const scanQrTicket = async (req, res) => {
         log.error(error);
         res.status(500).json({
             message: "Error creating Ticket",
+            resCode: 401,
             error: error
         })
     }
