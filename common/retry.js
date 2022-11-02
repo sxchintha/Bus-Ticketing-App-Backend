@@ -1,4 +1,10 @@
 
+/************************************************************
+RETRY Design Pattern
+retrying operations that may fail
+externalServiceCall is a function that may fail
+retryCount is the number of times to retry the operation
+************************************************************/
 async function retryOperation(externalServiceCall, retryCount) {
     let currentTry = 0;
 

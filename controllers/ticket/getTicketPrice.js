@@ -1,26 +1,23 @@
 const BusRoute = require("../../models/busRoute.model")
 
-async function getTicketPrice(ticketData){
-    try{
-        console.log("GETT TICKET")
-        const routeNo=ticketData.routeNumber;
-        const busRoute=await BusRoute.findOne({routeNumber:routeNo})
-            .then(async busRoute=>{
-                if(busRoute){
-                    console.log("XXXXXXXXXX")
-                    const start_station=await (busRoute.stations.find(station=>station.stationName==ticketData.ticketFrom))
-                    const end_station=await (busRoute.stations.find(station=>station.stationName==ticketData.ticketTo))
-                    console.log(start_station)
-                    const ticketPrice= await (end_station.stationDistance-start_station.stationDistance)*10;
-                    console.log(ticketPrice)
+async function getTicketPrice(ticketData) {
+    try {
+        const routeNo = ticketData.routeNumber;
+        const busRoute = await BusRoute.findOne({ routeNumber: routeNo })
+            .then(async busRoute => {
+                if (busRoute) {
+                    const start_station = await (busRoute.stations.find(station => station.stationName == ticketData.ticketFrom))
+                    const end_station = await (busRoute.stations.find(station => station.stationName == ticketData.ticketTo))
+                    const ticketPrice = await (end_station.stationDistance - start_station.stationDistance) * 10;
                     return ticketPrice;
+
                 } else {
                     return {
-                        error:"No bus Route Found"
+                        error: "No bus Route Found"
                     }
                 }
             })
-            return busRoute;
+        return busRoute;
 
     } catch (error) {
         console.log(error);
@@ -31,4 +28,4 @@ async function getTicketPrice(ticketData){
     }
 }
 
-module.exports=getTicketPrice;
+module.exports = getTicketPrice;

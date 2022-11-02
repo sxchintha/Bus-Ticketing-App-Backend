@@ -1,5 +1,7 @@
+
 const BusRoute = require("../../models/busRoute.model")
 
+// add new bus route to the system
 const addNewBusRoute = async (req, res) => {
     const formData = req.body;
     console.log(formData)

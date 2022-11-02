@@ -6,6 +6,7 @@ async function getBusByBusNumber(busNumber) {
     try {
         const bus = await Bus.findOne({ busNumber: busNumber })
             .then(bus => {
+                // if a bus is found, return the bus, else return error
                 if (bus) {
                     return bus;
                 } else {
@@ -14,7 +15,6 @@ async function getBusByBusNumber(busNumber) {
                     }
                 }
             })
-
         return bus;
 
     } catch (error) {
