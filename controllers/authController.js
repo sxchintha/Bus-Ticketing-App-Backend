@@ -49,7 +49,7 @@ const handleLogin = async (req, res) => {
         res.cookie('jwt', refreshToken, { httpOnly: true, secure: true, sameSite: 'None', maxAge: 24 * 60 * 60 * 1000 });
 
         // Send authorization roles and access token to user
-        res.json({ roles, accessToken, _id });
+        res.json({ roles, accessToken, _id: foundUser.nic });
     }
     else {
         res.sendStatus(401);
