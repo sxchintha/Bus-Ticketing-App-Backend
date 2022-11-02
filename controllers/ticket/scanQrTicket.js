@@ -101,7 +101,7 @@ const scanQrTicket = async (req, res) => {
                 }
             })
     } catch (error) {
-        log.error(error);
+        console.log(error);
         res.status(500).json({
             message: "Error creating Ticket",
             resCode: 401,
