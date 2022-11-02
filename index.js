@@ -35,8 +35,12 @@ const timetableRouter = require("./routes/timetable.routes");
 app.use("/timetable", timetableRouter);
 
 //BusRoute routes
-const addNewBusRoute=require("./routes/busRoute.routes")
-app.use("/busroute",addNewBusRoute);
+const addNewBusRoute = require("./routes/busRoute.routes")
+app.use("/busroute", addNewBusRoute);
+
+//UserAccount routes
+const userAccountRouter = require("./routes/user.routes")
+app.use("/user", userAccountRouter);
 
 const URL = process.env.MONGODB_URL;
 
