@@ -1,4 +1,5 @@
 
+const getLongitudeLatitude = require('../../common/getLongitudeLatitude');
 const Timetable = require('../../models/timetable.model');
 const getBusByBusNumber = require('../bus/getBusByBusNumber');
 const getRouteByRouteNumber = require('../busroute/getRouteByRouteNumber');
@@ -50,6 +51,12 @@ async function getTimesAndBuses(times, startLocation, destination) {
                 arrivalAtEnd = addZero(tempDate.getHours()) + ":" + addZero(tempDate.getMinutes());
             }
 
+            // set locations of start and end of the bus route
+            let routeStart = routeDetail.stations[0].stationName;
+            let routeEnd = routeDetail.stations[routeDetail.stations.length - 1].stationName;
+            let routeStartLonLat = getLongitudeLatitude(routeStart);
+            let routeEndLonLat = getLongitudeLatitude(routeEnd);
+
             // if there is no error, return the time and the bus number
             if (!bus.error) {
                 return ({
@@ -57,6 +64,10 @@ async function getTimesAndBuses(times, startLocation, destination) {
                     arivalTimeOnStart: arrivalAtStart,
                     arivalTimeOnDestination: arrivalAtEnd,
                     route: time.timetableRoute,
+                    routeLonLat: {
+                        startLonLat: routeStartLonLat,
+                        endLonLat: routeEndLonLat
+                    },
                     bus: bus,
                 })
             }
