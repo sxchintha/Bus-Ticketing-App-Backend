@@ -7,7 +7,6 @@ const newTicket = async (req, res) => {
     try {
         // Calculate the ticket price
         ticketData.ticketPrice= await getTicketPrice(ticketData)
-        console.log(ticketData);
 
         // Get seat number
 
