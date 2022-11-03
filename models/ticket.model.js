@@ -4,7 +4,6 @@ const Schema = mongoose.Schema;
 const ticketSchema = new Schema({
     ticketType: {
         type: String,
-        required: true
     },
     ticketPrice: {
         type: Number,
@@ -23,7 +22,8 @@ const ticketSchema = new Schema({
     },
     ticketDate: {
         type: String,
-        required: true
+        required: true,
+        default: Date.now()
     },
     ticketTime: {
         type: String,
@@ -31,17 +31,21 @@ const ticketSchema = new Schema({
     },
     ticketSeat: {
         type: String,
-        required: true
     },
     ticketBus: {
         type: String,
+        required: true
     },
     ticketPassenger: {
         type: String,
     },
-    routeNumnber:{
-        type:String,
+    routeNumnber: {
+        type: String,
     },
+    userID: {
+        type: String,
+        required: true
+    }
 });
 
 const Ticket = mongoose.model("Ticket", ticketSchema);

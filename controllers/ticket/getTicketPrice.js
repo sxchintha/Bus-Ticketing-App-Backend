@@ -1,5 +1,6 @@
 const BusRoute = require("../../models/busRoute.model")
 
+
 //Function For getting ticket price
 async function getTicketPrice(ticketData){
     try{
@@ -11,13 +12,14 @@ async function getTicketPrice(ticketData){
                     const end_station=await (busRoute.stations.find(station=>station.stationName==ticketData.ticketTo))
                     const ticketPrice= await (end_station.stationDistance-start_station.stationDistance)*10;
                     return ticketPrice;
+
                 } else {
                     return {
-                        error:"No bus Route Found"
+                        error: "No bus Route Found"
                     }
                 }
             })
-            return busRoute;
+        return busRoute;
 
     } catch (error) {
         // res.status(500).json({
@@ -27,4 +29,4 @@ async function getTicketPrice(ticketData){
     }
 }
 
-module.exports=getTicketPrice;
+module.exports = getTicketPrice;

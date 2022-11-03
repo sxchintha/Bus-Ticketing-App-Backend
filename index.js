@@ -10,13 +10,10 @@ require("dotenv").config();
 
 const PORT = process.env.PORT || 8070;
 
-
 app.use(credentials);
 
 app.use(cors(corsOptions));
 app.use(express.json({ limit: "30mb", extended: true }));
-
-
 
 //Login routes
 const loginRouter = require("./routes/login.routes");
@@ -35,15 +32,16 @@ const timetableRouter = require("./routes/timetable.routes");
 app.use("/timetable", timetableRouter);
 
 //BusRoute routes
-const addNewBusRoute=require("./routes/busRoute.routes")
-app.use("/busroute",addNewBusRoute);
+const addNewBusRoute = require("./routes/busRoute.routes");
+app.use("/busroute", addNewBusRoute);
 
-const URL = process.env.MONGODB_URL;
+//UserAccount routes
+const userAccountRouter = require("./routes/user.routes");
+const DatabaseConnectionSingleton = require("./dbConnection");
+app.use("/user", userAccountRouter);
 
-mongoose.connect(URL, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
+// Instanciate the singleton
+DatabaseConnectionSingleton.getInstance();
 
 const connection = mongoose.connection;
 

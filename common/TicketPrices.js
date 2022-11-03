@@ -1,4 +1,5 @@
 
+// the normal price is multiplied according to the bus type
 const NORMAL_BUS = 1
 const LUXURY_BUS = 1.5
 const AC_BUS = 2
