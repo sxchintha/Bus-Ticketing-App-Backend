@@ -3,13 +3,13 @@ const jwt = require('jsonwebtoken');
 const Iuser = require('../models/iUser.model');
 
 const handleLogin = async (req, res) => {
-    const { password, email } = req.body;
+    const { password, username } = req.body;
     let foundUser;
-    if (!email && !password) return res.status(400).json({ 'message': 'email and password are required.' });
-    foundUser = await Iuser.findOne({ email: email }).exec();
+    if (!username && !password) return res.status(400).json({ 'message': 'email and password are required.' });
+    foundUser = await Iuser.findOne({ email: username }).exec();
 
     if (!foundUser) {
-        return res.sendStatus(401); //Unauthorized 
+        return res.sendStatus(400); //Unauthorized 
     }
 
     // evaluate password 
