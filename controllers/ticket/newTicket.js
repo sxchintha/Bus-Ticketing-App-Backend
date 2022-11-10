@@ -7,11 +7,6 @@ const newTicket = async (req, res) => {
     const ticketData = req.body;
 
     try {
-        // Calculate the ticket price
-        ticketData.ticketPrice= await getTicketPrice(ticketData)
-
-
-    try {
         // reduce the ticket price from the user's account balance
         if (ticketData.paymentMethod === 'account') {
             const user = await User.findOne({ nic: ticketData.userID });
