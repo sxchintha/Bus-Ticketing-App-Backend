@@ -6,7 +6,7 @@ const User = require("../models/iUser.model");
 // Register new User
 const userSignUp = async (req, res) => {
     const formData = req.body; // get data from the request body
-    console.log(formData);
+    // console.log(formData);
 
     User.findOne({ email: formData.email })
         .then(user => {
@@ -19,7 +19,7 @@ const userSignUp = async (req, res) => {
                 formData.password = hashedPassword; // set the hashed password to the formData object
 
                 const newUser = new User(formData); // create a new organization
-                console.log(newUser)
+                // console.log(newUser)
                 newUser.save() // save the new organization to the database
                     .then(user => {
                         res.status(201).json({
