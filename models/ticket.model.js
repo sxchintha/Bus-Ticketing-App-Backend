@@ -21,7 +21,7 @@ const ticketSchema = new Schema({
         type: String,
     },
     ticketDate: {
-        type: String,
+        type: Date,
         required: true,
         default: Date.now()
     },
