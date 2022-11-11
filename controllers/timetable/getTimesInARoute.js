@@ -32,7 +32,7 @@ async function getTimesAndBuses(times, startLocation, destination) {
 
 
             // calculate the arrival time of the bus at start location and destination
-            const timeFromBegin = new Date(1970, 01, 01, time.timetableTimeH, time.timetableTimeM);
+            const timeFromBegin = new Date(1970, 1, 1, time.timetableTimeH, time.timetableTimeM);
             let tempDate
             let arrivalAtStart
             let arrivalAtEnd
